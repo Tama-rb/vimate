@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2.1
+version: 2
 defaults: &defaults
   docker:
     # specify the version you desire here
@@ -24,6 +24,7 @@ jobs:
       - checkout
       - restore_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
+      - run: gem install bundler
       - run: bundle install
       - save_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
@@ -43,7 +44,7 @@ jobs:
           name: Run Rubocop
           command: bundle exec rubocop --parallel
 workflows:
-  version: 2.1
+  version: 2
   build_and_test:
     jobs:
     - build
