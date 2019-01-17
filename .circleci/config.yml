@@ -11,6 +11,7 @@ defaults: &defaults
         RAILS_ENV: test
         TZ: /usr/share/zoneinfo/Asia/Tokyo
         BUNDLE_PATH: vendor/bundle
+        BUNDLER_VERSION: 2.0.1
     - image: postgres:11.1-alpine
       environment:
         - POSTGRES_USER: vimmer
@@ -24,6 +25,7 @@ jobs:
       - checkout
       - restore_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
+      - run: gem install bundler -v 2.0.1
       - run: bundle install
       - save_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
