@@ -1,0 +1,63 @@
+# 基本的に自動生成されるものはチェック対象から除外する
+AllCops:
+  Exclude:
+  - .git/*
+  - bin/*
+  - error_pages/**/*
+  - db/schema.rb
+  - db/fixtures/*
+  - node_modules/**/*
+  - spec/**/*
+  - tmp/**/*
+  - vendor/**/*
+  DisplayCopNames: true
+
+# UTF-8を使う
+Encoding:
+  Enabled: false
+
+# デフォルト80文字の倍の160文字まで許可
+LineLength:
+  Max: 160
+
+# メソッドをデフォルトの10行以上にしても許可する
+MethodLength:
+  Enabled: false
+
+# 桁揃えが綺麗にならないことがあるのでmigrationは除外する
+Layout/ExtraSpacing:
+  Exclude:
+  - "db/migrate/*.rb"
+
+# 日本語コメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# !!の使用を許可する
+Style/DoubleNegation:
+  Enabled: false
+
+# frozen_string_literal: trueというマジックコメントを書かなくてもRuboCopの規約違反にしない
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 変数展開やエスケープの必要がない場合にシングルクォートやダブルクォートを利用する関係のルール
+# デフォルトで生成されるファイル群が規約違反に当たるため一旦無効化しておく
+Style/StringLiterals:
+  Enabled: false
+
+# クラス内のクラスなどを定義する際の形式を強制するルール
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# classやmoduleのトップレベルのドキュメントをチェック
+Style/Documentation:
+  Enabled: false
+
+# 文字列やシンボルの配列をリテラルのみで作成するときに、原則%記法を使うように強制される。
+Style/SymbolArray:
+  Enabled: false
+
+# 配列の[]内のスペースに関するルール
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
