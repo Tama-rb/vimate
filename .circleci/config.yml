@@ -24,7 +24,7 @@ jobs:
       - checkout
       - restore_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
-      - run: gem install bundler
+      - run: gem install bundler -v 2.0.1
       - run: bundle install
       - save_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
