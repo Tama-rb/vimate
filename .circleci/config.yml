@@ -6,7 +6,7 @@ version: 2
 defaults: &defaults
   docker:
     # specify the version you desire here
-    - image: ruby:2.5.1
+    - image: ruby:2.6
       environment:
         RAILS_ENV: test
         BUNDLER_VERSION: 2.0.1
