@@ -9,6 +9,7 @@ defaults: &defaults
     - image: ruby:2.5.1
       environment:
         RAILS_ENV: test
+        BUNDLER_VERSION: 2.0.1
         TZ: /usr/share/zoneinfo/Asia/Tokyo
         BUNDLE_PATH: vendor/bundle
     - image: postgres:11.1-alpine
@@ -24,7 +25,6 @@ jobs:
       - checkout
       - restore_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
-      - run: gem install bundler -v 2.0.1
       - run: bundle install
       - save_cache:
           key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
