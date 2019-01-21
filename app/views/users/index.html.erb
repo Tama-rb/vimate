@@ -1,0 +1,5 @@
+<% unless logged_in? %>
+  <%= link_to 'ログイン', '/auth/github' %>
+<% else %>
+  <%= link_to 'ログアウト', logout_path %>
+<% end %>
