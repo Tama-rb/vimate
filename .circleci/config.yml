@@ -1,0 +1,54 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+defaults: &defaults
+  docker:
+    # specify the version you desire here
+    - image: ruby:2.5.1
+      environment:
+        RAILS_ENV: test
+        TZ: /usr/share/zoneinfo/Asia/Tokyo
+        BUNDLE_PATH: vendor/bundle
+        BUNDLER_VERSION: 1.17.2
+    - image: postgres:11.1-alpine
+      environment:
+        - POSTGRES_USER: vimmer
+        - POSTGRES_PASSWORD: vimate
+        - PGDATA: /dev/shm/pgdata/data
+  working_directory: ~/vimate_app
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
+      - run: gem install bundler -v 1.17.2
+      - run: bundle install
+      - save_cache:
+          key: vimate-app-gemfile-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - persist_to_workspace:
+          root: ~/vimate_app
+          paths:
+            - ./*
+  # RuboCop check!!
+  code_analyze:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/vimate_app
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop --parallel
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - build
+    - code_analyze:
+        requires:
+        - build
